@@ -109,6 +109,12 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
+        .select2-container--default .select2-selection--single {
+            height: 44px;
+            line-height: 44px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -170,12 +176,10 @@
                 flexSelect.add(option);
             });
 
-            // Initialize select2
-            $(document).ready(function() {
-                $('#flexSelect').select2({
-                    placeholder: '-- เลือกข้อความ --',
-                    width: '100%'
-                });
+            // Initialize Select2
+            $('#flexSelect').select2({
+                placeholder: '-- เลือกข้อความ --',
+                width: '100%'
             });
 
             flexSelect.addEventListener('change', updatePreview);
