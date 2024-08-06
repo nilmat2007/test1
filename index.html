@@ -12,6 +12,8 @@
             background-color: #0f0f0f;
             font-family: 'Poppins', sans-serif;
             color: #e0e0e0;
+            margin: 0;
+            padding: 0;
         }
 
         .container {
@@ -117,7 +119,7 @@
             <img id="previewImage" src="" alt="Flex Message Preview">
         </div>
         <div class="button-container">
-            <button id="shareBtn" class="btn btn-primary btn-lg mt-3">Share</button>
+            <button id="shareBtn" class="btn btn-primary">Share</button>
         </div>
     </div>
 
@@ -165,12 +167,9 @@
 
             if (selectedIndex >= 0) {
                 const flexMessage = flexMessages[selectedIndex];
-                // ここで Flex Message のプレビュー画像を生成する API を呼び出す
-                // 例: previewImage.src = 'https://your-preview-api.com/' + encodeURIComponent(JSON.stringify(flexMessage.contents));
-                previewContainer.style.display = 'block';
-                
                 // ตัวอย่างการใช้ Flex Message Simulator
                 previewImage.src = `https://developers.line.biz/flex-simulator/?json=${encodeURIComponent(JSON.stringify(flexMessage.contents))}`;
+                previewContainer.style.display = 'block';
             } else {
                 previewContainer.style.display = 'none';
             }
