@@ -158,21 +158,24 @@
             flexSelect.addEventListener('change', updatePreview);
         }
 
-        function updatePreview() {
-            const selectedIndex = document.getElementById('flexSelect').value;
-            const previewContainer = document.getElementById('previewContainer');
-            const previewImage = document.getElementById('previewImage');
+       function updatePreview() {
+    const selectedIndex = document.getElementById('flexSelect').value;
+    const previewContainer = document.getElementById('previewContainer');
+    const previewImage = document.getElementById('previewImage');
 
-            if (selectedIndex >= 0) {
-                const flexMessage = flexMessages[selectedIndex];
-                previewContainer.style.display = 'block';
-                
-                // ใช้ Flex Message Simulator สำหรับการแสดงตัวอย่าง
-                previewImage.src = `https://developers.line.biz/flex-simulator/?json=${encodeURIComponent(JSON.stringify(flexMessage.contents))}`;
-            } else {
-                previewContainer.style.display = 'none';
-            }
-        }
+    if (selectedIndex >= 0) {
+        const flexMessage = flexMessages[selectedIndex];
+        previewContainer.style.display = 'block';
+        
+        // Update this URL to ensure the Flex Message Simulator is working
+        const flexMessageUrl = `https://developers.line.biz/flex-simulator/?json=${encodeURIComponent(JSON.stringify(flexMessage.contents))}`;
+        
+        // Test the URL directly in the browser
+        previewImage.src = flexMessageUrl;
+    } else {
+        previewContainer.style.display = 'none';
+    }
+}
 
         function shareFlexMessage() {
             if (!liff.isLoggedIn()) {
