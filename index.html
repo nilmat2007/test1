@@ -7,11 +7,13 @@
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
         body {
             background-color: #0f0f0f;
             font-family: 'Poppins', sans-serif;
             color: #e0e0e0;
         }
+
         .container {
             max-width: 600px;
             margin: 80px auto;
@@ -20,6 +22,7 @@
             border-radius: 10px;
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
         }
+
         h1 {
             font-weight: 700;
             text-align: center;
@@ -27,17 +30,20 @@
             color: #00ffff;
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
+
         .lead {
             text-align: center;
             margin-bottom: 40px;
             color: #a0a0a0;
         }
+
         .form-group label {
             font-weight: 600;
             margin-bottom: 10px;
             display: block;
             color: #00ffff;
         }
+
         .form-control {
             width: 100%;
             padding: 12px 16px;
@@ -48,10 +54,12 @@
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
             transition: box-shadow 0.3s ease;
         }
+
         .form-control:focus {
             outline: none;
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
+
         .btn {
             display: inline-block;
             font-weight: 600;
@@ -65,27 +73,39 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
+
         .btn-primary {
             color: #e0e0e0;
             background-color: #00ffff;
             border: none;
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
+
         .btn-primary:hover {
             background-color: #00d9d9;
         }
+
         .button-container {
             display: flex;
             justify-content: center;
         }
+
         #previewContainer {
             margin-top: 20px;
             text-align: center;
         }
-        #previewImage {
+
+        #bubblePreview {
             max-width: 100%;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        #bubbleContent {
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -101,7 +121,9 @@
         </div>
         <div id="previewContainer" style="display: none;">
             <h3>ตัวอย่าง Flex Message:</h3>
-            <img id="previewImage" src="" alt="Flex Message Preview">
+            <div id="bubblePreview">
+                <div id="bubbleContent"></div>
+            </div>
         </div>
         <div class="button-container">
             <button id="shareBtn" class="btn btn-primary btn-lg mt-3">Share</button>
@@ -148,17 +170,52 @@
         function updatePreview() {
             const selectedIndex = document.getElementById('flexSelect').value;
             const previewContainer = document.getElementById('previewContainer');
-            const previewImage = document.getElementById('previewImage');
+            const bubbleContent = document.getElementById('bubbleContent');
 
             if (selectedIndex >= 0) {
                 const flexMessage = flexMessages[selectedIndex];
                 previewContainer.style.display = 'block';
 
-                // ใช้ URL ที่สร้างจาก Google Apps Script หรือ URL ของภาพที่คุณมี
-                previewImage.src = flexMessage.imageUrl; // ใช้ URL ของภาพที่สร้าง
+                // Create HTML representation of the Flex Message bubble
+                bubbleContent.innerHTML = createBubbleHTML(flexMessage.contents);
             } else {
                 previewContainer.style.display = 'none';
             }
+        }
+
+        function createBubbleHTML(contents) {
+            let html = '';
+            if (contents.type === 'bubble') {
+                const header = contents.header || {};
+                const hero = contents.hero || {};
+                const body = contents.body || {};
+                const footer = contents.footer || {};
+
+                html += `<div style="background-color: ${header.backgroundColor || '#ffffff'}; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">`;
+                
+                if (hero.url) {
+                    html += `<img src="${hero.url}" style="width: 100%; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">`;
+                }
+
+                if (header.contents && header.contents.length > 0) {
+                    html += `<h2 style="color: ${header.contents[0].color || '#000000'};">${header.contents[0].text}</h2>`;
+                }
+
+                if (body.contents) {
+                    body.contents.forEach(item => {
+                        html += `<p style="color: ${item.color || '#000000'};">${item.text}</p>`;
+                    });
+                }
+
+                if (footer.contents && footer.contents.length > 0) {
+                    footer.contents.forEach(item => {
+                        html += `<button style="background-color: ${item.backgroundColor || '#000000'}; color: ${item.color || '#ffffff'}; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">${item.text}</button>`;
+                    });
+                }
+
+                html += `</div>`;
+            }
+            return html;
         }
 
         function shareFlexMessage() {
