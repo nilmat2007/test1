@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Class 1+1 TikTok + Ai Short Cut</title>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
@@ -130,6 +132,10 @@
         </div>
     </div>
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
     <script>
         let flexMessages = [];
         const LIFF_ID = "2005615503-J0egQn64"; // แทนที่ด้วย LIFF ID ของคุณ
@@ -162,6 +168,14 @@
                 option.value = index;
                 option.text = `${flexMessage.id}: ${flexMessage.altText}`;
                 flexSelect.add(option);
+            });
+
+            // Initialize select2
+            $(document).ready(function() {
+                $('#flexSelect').select2({
+                    placeholder: '-- เลือกข้อความ --',
+                    width: '100%'
+                });
             });
 
             flexSelect.addEventListener('change', updatePreview);
