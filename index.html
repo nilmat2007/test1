@@ -12,8 +12,6 @@
             background-color: #0f0f0f;
             font-family: 'Poppins', sans-serif;
             color: #e0e0e0;
-            margin: 0;
-            padding: 0;
         }
 
         .container {
@@ -119,7 +117,7 @@
             <img id="previewImage" src="" alt="Flex Message Preview">
         </div>
         <div class="button-container">
-            <button id="shareBtn" class="btn btn-primary">Share</button>
+            <button id="shareBtn" class="btn btn-primary btn-lg mt-3">Share</button>
         </div>
     </div>
 
@@ -167,9 +165,10 @@
 
             if (selectedIndex >= 0) {
                 const flexMessage = flexMessages[selectedIndex];
-                // ตัวอย่างการใช้ Flex Message Simulator
-                previewImage.src = `https://developers.line.biz/flex-simulator/?json=${encodeURIComponent(JSON.stringify(flexMessage.contents))}`;
                 previewContainer.style.display = 'block';
+                
+                // ใช้ Flex Message Simulator สำหรับการแสดงตัวอย่าง
+                previewImage.src = `https://developers.line.biz/flex-simulator/?json=${encodeURIComponent(JSON.stringify(flexMessage.contents))}`;
             } else {
                 previewContainer.style.display = 'none';
             }
