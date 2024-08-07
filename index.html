@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Class 1+1 TikTok + Ai Short Cut</title>
     <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    <!-- Select2 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
@@ -109,7 +107,6 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
     </style>
 </head>
 <body>
@@ -133,10 +130,6 @@
         </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Select2 JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
     <script>
         let flexMessages = [];
         const LIFF_ID = "2005615503-J0egQn64"; // แทนที่ด้วย LIFF ID ของคุณ
@@ -178,6 +171,10 @@
             const selectedIndex = document.getElementById('flexSelect').value;
             const previewContainer = document.getElementById('previewContainer');
             const bubbleContent = document.getElementById('bubbleContent');
+
+            if (selectedIndex >= 0) {
+                const flexMessage = flexMessages[selectedIndex];
+                previewContainer.style.display = 'block';
 
                 // Create HTML representation of the Flex Message bubble
                 bubbleContent.innerHTML = createBubbleHTML(flexMessage.contents);
