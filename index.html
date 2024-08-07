@@ -179,10 +179,6 @@
             const previewContainer = document.getElementById('previewContainer');
             const bubbleContent = document.getElementById('bubbleContent');
 
-            if (selectedIndex >= 0) {
-                const flexMessage = flexMessages[selectedIndex];
-                previewContainer.style.display = 'block';
-
                 // Create HTML representation of the Flex Message bubble
                 bubbleContent.innerHTML = createBubbleHTML(flexMessage.contents);
             } else {
